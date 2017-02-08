@@ -8,15 +8,14 @@ The proposed project is a smart real-time parking booking system that provides c
 
 Technologies Used:
 
-Angular2 with TypeScript
-Angular Material2
-AngularFire2
-Firebase RealTime Database
-Progressive Web App
-RxJS
-Redux
+1. Angular2 with TypeScript
+2. Angular Material2
+3. AngularFire2
+4. Firebase RealTime Database
+5. Progressive Web App
+6. RxJS
 
-Admin Credentials:
+Admin Credentials:  
 ID: admin@gmail.com
 Password: admin!234
 
