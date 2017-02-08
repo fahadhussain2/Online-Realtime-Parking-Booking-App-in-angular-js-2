@@ -1,0 +1,50 @@
+<div *ngIf="!isAdmin" class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Booking List</h3>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+       <div style="margin: 0 auto ; margin-top: 150px" *ngIf="mybookings.length <= 0 && !timeout" class="loader"></div>
+      <!--<div class="alert alert-dismissible alert-danger" *ngIf="allbookings.length <= 0 && timeout">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <p>You have not booked any slot yet.</p>
+</div>-->
+  <li  *ngFor="let bookings of mybookings; let i=index"class="list-group-item">
+    <b>Slot no:</b>{{bookings.id}}<br>
+    <b>Date: </b>{{bookings.date}}<br>
+    <b>Start Time:</b> {{bookings.starttime}}<br>
+    <b>End Time: </b>{{bookings.endtime}}<br>
+    
+    <button type="button" class="btn btn-danger" (click)="delete(i)">Delete</button>
+
+  </li>
+</ul>
+ 
+  </div>
+</div>
+
+<div *ngIf="isAdmin" class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">All Bookings</h3>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <div style="margin: 0 auto ; margin-top: 150px" *ngIf="allbookings.length <= 0 && !timeout" class="loader"></div>
+      <!--<div class="alert alert-dismissible alert-danger" *ngIf="allbookings.length <= 0 && timeout">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+</div>-->
+  <li  *ngFor="let bookings of allbookings; let i=index"class="list-group-item">
+    <b>Slot no:</b>{{bookings.id}}<br>
+    <b>Date: </b>{{bookings.date}}<br>
+    <b>Start Time:</b> {{bookings.starttime}}<br>
+    <b>End Time: </b>{{bookings.endtime}}<br>
+    
+    <button type="button" class="btn btn-success" (click)="admindelete(i)">Delete</button>
+
+  </li>
+</ul>
+ 
+  </div>
+</div>
+

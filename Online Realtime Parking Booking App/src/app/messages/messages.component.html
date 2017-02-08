@@ -1,0 +1,41 @@
+<div *ngIf="!isAdmin" class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">My messages</h3>
+  </div>
+  <div class="panel-body">
+          <div style="margin: 0 auto ; margin-top: 150px" *ngIf="mymessages.length <= 0 && !timeout" class="loader"></div>
+    <li  *ngFor="let messages of mymessages; let i=index" class="list-group-item">
+    <b>name: </b>{{messages.name}}<br>
+    <b>My Message: </b>{{messages.message}}<br>
+    <b>Reply: </b> {{messages.reply}}<br>
+
+  </li>
+  </div>
+</div>
+
+
+
+<div *ngIf="isAdmin" class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">All messages</h3>
+  </div>
+  <div class="panel-body">
+          <div style="margin: 0 auto ; margin-top: 150px" *ngIf="allmessages.length <= 0 && !timeout" class="loader"></div>
+    <li  *ngFor="let allmessages of allmessages; let i=index" class="list-group-item">
+    <b>name: </b>{{allmessages.name}}<br>
+    <b>Message: </b>{{allmessages.message}}<br>
+    <b>Reply: </b>{{allmessages.reply}} <br><br>
+
+    <div class="form">
+        <div class="input-group">
+          <input type="text" class="form-control" #message>
+          <span class="input-group-btn"><!-- Prepend button addon using class input-group-lg -->
+            <button class="btn btn-primary" type="button" (click)="reply(message,i)">Reply</button>
+          </span>
+          
+        </div>
+    </div>
+
+  </li>
+  </div>
+</div>

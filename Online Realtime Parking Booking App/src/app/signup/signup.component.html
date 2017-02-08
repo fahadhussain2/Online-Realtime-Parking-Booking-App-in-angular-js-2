@@ -1,0 +1,107 @@
+<div class="container">
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<form role="form"
+		[formGroup]="userForm"
+		(ngSubmit)="signUp()">
+			<h3>Please Sign Up <small>It's free and always will be.</small></h3>
+			<hr class="colorgraph">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group">
+                        <input type="text" name="first_name" id="first_name" class="form-control input-md" placeholder="First Name" formControlName="fname" tabindex="1">
+					</div>
+				</div>
+			</div>
+				<div *ngIf="userForm.controls['fname'].hasError('required') && userForm.controls['fname'].touched" class="alert alert-danger">
+     <span class="glyphicon glyphicon-warning-sign"></span><strong> Please enter your first name </strong>    
+    </div>
+
+	<div *ngIf="userForm.controls['fname'].hasError('minlength')" class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span> <strong> provide atleast 5 characters </strong>
+    </div>
+
+    <div *ngIf="userForm.controls['fname'].hasError('maxlength')" class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span><strong> Please do not exceed 10 characters</strong>
+    </div>
+
+	<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group">
+						<input type="text" name="last_name" id="last_name" class="form-control input-md" placeholder="Last Name" formControlName="lname" tabindex="2">
+					</div>
+				</div>
+	</div>
+				<div *ngIf="userForm.controls['lname'].hasError('required') && userForm.controls['lname'].touched" class="alert alert-danger">
+     <span class="glyphicon glyphicon-warning-sign"></span><strong> Please enter your last name </strong>    
+    </div>
+
+	<div *ngIf="userForm.controls['lname'].hasError('minlength')" class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span> <strong> provide atleast 5 characters </strong>
+    </div>
+
+    <div *ngIf="userForm.controls['lname'].hasError('maxlength')" class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span><strong> Please do not exceed 10 characters</strong>
+    </div>
+		
+
+			<div class="form-group">
+				<input type="email" name="email" id="email" class="form-control input-md" placeholder="Email Address" formControlName="email" tabindex="4" #emailid>
+			</div>
+			<div *ngIf="userForm.controls['email'].hasError('pattern')" class="alert alert-danger">
+     <span class="glyphicon glyphicon-warning-sign"></span> <strong> Please enter correct email address</strong>
+    </div>
+	<div formGroupName="passwordfields">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group">
+						<input type="password" name="password" id="password" class="form-control input-md" placeholder="Password" formControlName="pass" tabindex="5" #pass>
+					</div>
+				</div>
+			</div>
+				<div *ngIf="userForm.controls['passwordfields'].controls['pass'].hasError('invalidPassword') && userForm.controls['passwordfields'].controls['pass'].dirty" class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span> <strong> Please enter Minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character:</strong>
+    </div>
+
+
+
+	<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group">
+						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-md" placeholder="Confirm Password" formControlName="cpass" tabindex="6">
+					</div>
+				</div>
+				
+			</div>
+			<div *ngIf="userForm.controls['passwordfields'].hasError('mismatchedPasswords')" class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span> <strong> does not match </strong>
+    </div>
+	</div>
+			<!--<div class="row">
+				<div class="col-xs-4 col-sm-3 col-md-3">
+					<span class="button-checkbox">
+						<button type="button" class="btn" data-color="info" tabindex="7">I Agree</button>
+                        <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+					</span>
+				</div>
+				<div class="col-xs-8 col-sm-9 col-md-9">
+					 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
+				</div>
+			</div>-->
+			
+			<hr class="colorgraph">
+			<div class="row">
+				
+				<div *ngIf="userForm.valid" class="col-xs-12 col-md-12"><button type="submit" value="Register" class="btn btn-primary btn-block btn-md" tabindex="7" >Register</button></div>
+				<div *ngIf="!userForm.valid" class="col-xs-12 col-md-12"><button type="submit" value="Register" class="btn btn-primary btn-block btn-md" tabindex="7" disabled >Register</button></div><br><br><br>
+				
+				<!--<div class="col-xs-12 col-md-12"><button type="button" class="btn btn-success btn-sm" (click)="navigate()"><span class="glyphicon glyphicon-arrow-left"></span>Back to login</button></div>-->
+				
+				
+			</div>
+		</form>
+	</div>
+</div>
+
+</div>
