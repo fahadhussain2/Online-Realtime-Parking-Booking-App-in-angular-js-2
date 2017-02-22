@@ -57,8 +57,13 @@ export class UserService{
     }
 
     bookParking(bookingObj,uid, slot){
-        this.af.database.object('bookings/' + uid).set(
-            {date: bookingObj.date, time:bookingObj.time, duration: bookingObj.duration, slot:slot }
+        this.af.database.list('bookings/').push(
+            {
+            uid:uid,
+            date: bookingObj.date, 
+            time:bookingObj.time,
+            duration: bookingObj.duration,
+            slot:slot }
         );
     }
 
