@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {UserService} from './Services/userService';
 import {AngularFire} from 'angularfire2';
+import {MyAction} from './store/actions';
+import {select} from 'ng2-redux';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,22 +19,27 @@ export class AppComponent {
   messages=[];
   counter:number;
   counter1:number;
-  constructor(private us:UserService, private af:AngularFire ){
+
+  status: string;
+
+  @select(['UserStatusReducer', 'type']) user$:Observable<any>
+  
+  constructor(private us:UserService, private af:AngularFire, private actions:MyAction ){
     this.af.auth.subscribe(user=>{
       if(user !=null){
         this.currentUser= user.uid;
         this.login = true;
         this.af.database.object('accounts/' + user.uid).subscribe(x=>{
           this.name = x.fname;
-          console.log('name',x.fname)
-          if(x.email === 'admin@gmail.com'){
-            this.isAdmin = true;
+          // console.log('name',x.fname)
+          // if(x.email === 'admin@gmail.com'){
+          //   this.isAdmin = true;
             
-          }
-          else{
-            this.isAdmin = false;
+          // }
+          // else{
+          //   this.isAdmin = false;
 
-          }
+          // }
         })
       }
       else{
@@ -42,11 +50,19 @@ export class AppComponent {
     // this.fetchMessages();
     this.adminMessageCounter();
     // console.log('counter',this.messages.length)
+
+    this.user$.subscribe(user=>{
+      if(user !== 'logout' && user !== undefined){
+        this.status = (user === 'admin@gmail.com'? 'isAdmin': 'isUser')
+      }
+      
+    })
   }
 
   logout(){
     this.us.logOut();
     this.name='';
+    this.actions.logout('logout')
   }
 
   // fetchMessages(){

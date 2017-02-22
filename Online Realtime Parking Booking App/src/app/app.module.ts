@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule,FormBuilder } from '@angular/forms';
 import {config, firebaseAuthConfig} from './app.config';
 import {UserService} from './Services/userService';
 import {AuthGuard} from './Services/authGuard';
+import {StoreModule} from './store';
+import { NgReduxModule } from 'ng2-redux';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -35,6 +37,8 @@ import { MessagesComponent } from './messages/messages.component';
     HttpModule,
     ReactiveFormsModule,
     router,
+    NgReduxModule,
+    StoreModule,
     AngularFireModule.initializeApp(config, firebaseAuthConfig)
   ],
   providers: [

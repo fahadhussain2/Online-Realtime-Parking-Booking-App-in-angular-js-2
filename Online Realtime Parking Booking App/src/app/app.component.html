@@ -1,3 +1,5 @@
+
+
 <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -10,19 +12,19 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul  class="nav navbar-nav">
-            <li *ngIf="login && !isAdmin" class="dropdown">
+            <li *ngIf="login && (status === 'isUser')" class="dropdown">
               <a routerLink="bookingform">Booking Form </a>
             </li>
             <li *ngIf="login" class="dropdown">
               <a routerLink="bookinglist">Booking List</a>
             </li>
-            <li *ngIf="login && !isAdmin" class="dropdown">
+            <li *ngIf="login && (status === 'isUser')" class="dropdown">
               <a routerLink="feedback">Feedback</a>
             </li>
-            <li *ngIf="login && !isAdmin " class="dropdown">
+            <li *ngIf="login && (status === 'isUser') " class="dropdown">
               <a routerLink="messages">Messages</a>
             </li>
-            <li *ngIf="login && isAdmin" class="dropdown">
+            <li *ngIf="login && (status === 'isAdmin')" class="dropdown">
               <a routerLink="messages">Messages <span class="badge">{{counter}}</span></a>
             </li>
             
@@ -52,3 +54,6 @@
   <router-outlet></router-outlet>
 </div>
 
+<p>Status: {{status}}</p>
+
+<p>{{user$ | async}}</p>
