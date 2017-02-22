@@ -35,6 +35,7 @@
   <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
 </div>-->
   <li  *ngFor="let bookings of allbookings; let i=index"class="list-group-item">
+    <h4><b>Booked by:</b> {{bookings.name}}</h4>
     <b>Slot no:</b>{{bookings.id}}<br>
     <b>Date: </b>{{bookings.date}}<br>
     <b>Start Time:</b> {{bookings.starttime}}<br>

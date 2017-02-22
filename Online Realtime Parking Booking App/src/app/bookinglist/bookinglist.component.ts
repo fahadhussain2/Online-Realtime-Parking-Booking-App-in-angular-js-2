@@ -28,13 +28,17 @@ export class BookinglistComponent implements OnInit {
             this.af.database.list('bookings/').subscribe(bookings=>{
               let tmp=[]
               for (let j=0; j<bookings.length; j++){
+                this.af.database.object('accounts/' +bookings[j].uid).subscribe(name=>{
+
+                
                 tmp.push({
+                  name:name.fname,
                   id:bookings[j].slot,
                   date: bookings[j].date,
                   starttime: parseInt(bookings[j].time),
                   endtime:parseInt(bookings[j].time) + parseInt(bookings[j].duration)
                 })
-
+              })
                 this.uids.push({
                   uid:bookings[j].$key
                 })
