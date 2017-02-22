@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, FormControl, AbstractControl} from '@angular/forms';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import {UserService} from '../Services/userService';
+import {select} from 'ng2-redux';
+import {Observable} from 'rxjs'
+
 
 @Component({
   selector: 'app-bookingform',
@@ -20,8 +23,9 @@ export class BookingformComponent implements OnInit {
   date;
   success:boolean;
 
+  @select (['UserStatusReducer', 'type']) user$: Observable<any>;
+
   slots  = [
-    { id: 0, isBooked: false, color: 'success' },
     { id: 1, isBooked: false, color: 'success' },
     { id: 2, isBooked: false, color: 'success' },
     { id: 3, isBooked: false, color: 'success' },
@@ -48,11 +52,13 @@ export class BookingformComponent implements OnInit {
     })
 
     // this.bookings$= this.us.fetchBookings();
+    
     this.us.fetchBookings().subscribe(data=>{
+      
       data.forEach(element => {
         
         this.bookedParkingArr.push({
-          id:element.slot.id,
+          id:element.slot,
           date:element.date,
           starttime: parseInt(element.time),
           endtime: parseInt(element.time) + parseInt(element.duration),
@@ -69,6 +75,8 @@ export class BookingformComponent implements OnInit {
     
     this.date= new Date().toISOString().slice(0,10);
     console.log('date',this.date);
+
+    
   }
 
   ngOnInit() {
@@ -81,14 +89,19 @@ export class BookingformComponent implements OnInit {
   }
   
   validate(slot){
+  
 
     let time= parseInt(this.bookingForm.value.time);
     let endtime= parseInt(this.bookingForm.value.time) + parseInt(this.bookingForm.value.duration);
 
     for (let i=0 ; i<this.bookedParkingArr.length; i++){
+    
       if (this.bookingForm.value.date === this.bookedParkingArr[i].date){
-        if(time >= this.bookedParkingArr[i].starttime && time < this.bookedParkingArr[i].endtime && this.bookedParkingArr[i].id=== slot){
+        if((time >= this.bookedParkingArr[i].starttime && time < this.bookedParkingArr[i].endtime && this.bookedParkingArr[i].id=== slot)){
           console.log(this.bookedParkingArr[i].starttime)
+          return true
+        }
+        else if(time <this.bookedParkingArr[i].starttime && endtime > this.bookedParkingArr[i].starttime && this.bookedParkingArr[i].id=== slot){
           return true
         }
       }

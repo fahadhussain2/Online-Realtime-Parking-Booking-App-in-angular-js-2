@@ -59,7 +59,7 @@
 
   <div>
     <span *ngFor="let slots of slots; let i=index">
-    <button  type="button" class="btn"  [ngClass]="{'btn-primary':!validate(i) , 'btn-danger':validate(i)}" [disabled]="validate(i)" (click)="bookSlot(i, slots)">Slot {{slots.id}}</button>
+    <button  type="button" class="btn"  [ngClass]="{'btn-primary':!validate(i) , 'btn-danger':validate(i)}" [disabled]="validate(i)" (click)="bookSlot(i, slots.id)">Slot {{slots.id}}</button>
       <!--<button *ngIf="salidate()" type="button" class="btn" [disabled]="slots.isBooked" [ngClass]="{'btn-success':!slots.isBooked , 'btn-danger':slots.isBooked}" (click)="bookSlot(i, slots)">Not Available</button>-->
     </span>
   </div>
