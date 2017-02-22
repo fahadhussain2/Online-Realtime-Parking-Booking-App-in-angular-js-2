@@ -15,6 +15,8 @@ export class BookinglistComponent implements OnInit {
   isAdmin:boolean=false;
   uid;
   timeout:boolean=false;
+  keys=[];
+
   constructor(private af:AngularFire) {
     this.af.auth.subscribe(user =>{
       if(user !== null){
@@ -27,7 +29,7 @@ export class BookinglistComponent implements OnInit {
               let tmp=[]
               for (let j=0; j<bookings.length; j++){
                 tmp.push({
-                  id:bookings[j].slot.id,
+                  id:bookings[j].slot,
                   date: bookings[j].date,
                   starttime: parseInt(bookings[j].time),
                   endtime:parseInt(bookings[j].time) + parseInt(bookings[j].duration)
@@ -48,13 +50,16 @@ export class BookinglistComponent implements OnInit {
       this.af.database.list('bookings/').subscribe(bookings=>{
         let tmp=[];
         for (let i=0; i<bookings.length; i++){
-          if(bookings[i].$key === user.uid){
+          if(bookings[i].uid === user.uid){
             tmp.push({
-            id:bookings[i].slot.id,
+            id:bookings[i].slot,
             date: bookings[i].date,
             starttime: parseInt(bookings[i].time),
             endtime:parseInt(bookings[i].time) + parseInt(bookings[i].duration)
-            })
+          })
+          this.keys.push({
+                  uid:bookings[i].$key
+                })
           }
         }
         this.mybookings=tmp;
@@ -75,8 +80,9 @@ export class BookinglistComponent implements OnInit {
   }
 
   delete(i){
-    this.af.database.object('bookings/' + this.uid).remove();
-    this.mybookings.splice(i,1);
+    this.af.database.object('bookings/' + this.keys[i].uid).remove();
+    // this.mybookings.splice(i,1);
+    this.keys.splice(i,1);
   }
 
   admindelete(i){
