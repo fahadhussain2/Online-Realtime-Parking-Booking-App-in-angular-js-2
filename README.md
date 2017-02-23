@@ -12,7 +12,6 @@ Technologies Used:
 2. Angular Material2
 3. AngularFire2
 4. Firebase RealTime Database
-5. Progressive Web App
 6. RxJS
 
 Admin Credentials:  
